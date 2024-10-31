@@ -7,6 +7,8 @@ This Python script can be used to bulk delete content in Elsevier's Pure system,
 > [!CAUTION]
 Before processing, the script provides a summary with the number of UUIDs to be deleted, allowing for user confirmation to prevent accidental deletions. But - goes without saying - use with caution and at your own risk :-) 
 
+It's not possible to delete content with relations to other content. 
+
 ## Prerequisites
 
 	•	Python 3.x
