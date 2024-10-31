@@ -4,6 +4,7 @@
 
 This Python script can be used to bulk delete content in Elsevier's Pure system, through the API. It reads UUIDs from a CSV file named uuids.csv (located in the same directory as the script) and sends DELETE requests to a specified endpoint in the Pure API. The user can dynamically select an endpoint, input the base URL, and provide the API key at runtime, ensuring flexibility and security. 
 
+> [!CAUTION]
 Before processing, the script provides a summary with the number of UUIDs to be deleted, allowing for user confirmation to prevent accidental deletions. But - goes without saying - use with caution and at your own risk :-) 
 
 ## Prerequisites
