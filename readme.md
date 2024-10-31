@@ -45,7 +45,7 @@ The script logs each deletion’s progress and response status code to:
 
 ## Example Output
 
-	• Enter the base URL (e.g., vbn.aau.dk): xyz.elsevierpure.com
+	• Enter the base URL: xyz.elsevierpure.com
 	• Enter your API key: [Your_API_Key]
 
 Available endpoints:
