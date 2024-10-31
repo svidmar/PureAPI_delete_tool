@@ -45,7 +45,7 @@ The script logs each deletion’s progress and response status code to:
 	•	A log file: delete_requests.log (created in the same directory as the script)
 
 ## Example Output
-
+```
 	• Enter the base URL: xyz.elsevierpure.com
 	• Enter your API key: [Your_API_Key]
 
@@ -62,6 +62,8 @@ WARNING: This will delete 10 activities. Are you sure? (yes/no): yes
 UUID: 123e4517-e89b-12h3-a456-426614175000 - Status Code: 204
 UUID: 123e4517-e99b-12c3-a456-426614177001 - Status Code: 204
 ...
+```
+
 
 ## Error Handling
 
