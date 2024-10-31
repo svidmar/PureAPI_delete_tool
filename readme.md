@@ -45,8 +45,8 @@ The script logs each deletion’s progress and response status code to:
 
 ## Example Output
 
-Enter the base URL (e.g., vbn.aau.dk): vbn.aau.dk
-Enter your API key: [Your_API_Key]
+	• Enter the base URL (e.g., vbn.aau.dk): xyz.elsevierpure.com
+	• Enter your API key: [Your_API_Key]
 
 Available endpoints:
 1. activities
@@ -54,8 +54,8 @@ Available endpoints:
 3. awards
 ...
 
-Select an endpoint by number: 1
-Selected endpoint: activities
+- Select an endpoint by number: 1
+- Selected endpoint: activities
 
 WARNING: This will delete 10 activities. Are you sure? (yes/no): yes
 UUID: 123e4517-e89b-12h3-a456-426614175000 - Status Code: 204
