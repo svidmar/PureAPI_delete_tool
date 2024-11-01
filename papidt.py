@@ -2,6 +2,9 @@ import csv
 import requests
 import logging
 import os
+import time
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 # Configure logging to log progress and response codes
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s", handlers=[logging.FileHandler("delete_requests.log"), logging.StreamHandler()])
@@ -13,6 +16,19 @@ available_endpoints = [
     "organizations", "persons", "prizes", "projects", "publishers", "research-outputs", "users"
 ]
 
+# Set a delay (in seconds) between requests to prevent rate-limiting
+REQUEST_DELAY = 2
+
+# Set up retry strategy for handling connection issues
+retry_strategy = Retry(
+    total=3,            # Retry up to 3 times
+    backoff_factor=1,    # Wait 1, 2, 4 seconds between retries
+    status_forcelist=[500, 502, 503, 504]  # Retry on server errors
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
+session = requests.Session()
+session.mount("https://", adapter)
+
 def delete_request(base_url, endpoint, api_key, uuid):
     url = f"https://{base_url}/ws/api/{endpoint}/{uuid}"
     headers = {
@@ -20,9 +36,13 @@ def delete_request(base_url, endpoint, api_key, uuid):
         "api-key": api_key
     }
     
-    response = requests.delete(url, headers=headers)
-    logging.info(f"UUID: {uuid} - Status Code: {response.status_code}")
-    return response.status_code
+    try:
+        response = session.delete(url, headers=headers)
+        logging.info(f"UUID: {uuid} - Status Code: {response.status_code}")
+        return response.status_code
+    except requests.exceptions.RequestException as e:
+        logging.error(f"An error occurred while deleting UUID: {uuid} - {e}")
+        return None
 
 def count_uuids(csv_file):
     """Count the number of UUIDs in the 'UUID' column of the CSV file."""
@@ -79,6 +99,7 @@ def main():
                 uuid = row.get("UUID")
                 if uuid:  # Ensure UUID is not empty
                     delete_request(base_url, endpoint, api_key, uuid)
+                    time.sleep(REQUEST_DELAY)  # Delay to prevent rate-limiting
     except Exception as e:
         logging.error(f"An error occurred: {e}")
 
